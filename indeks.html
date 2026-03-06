@@ -1,0 +1,155 @@
+ <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WA Shield PRO | ARDOANGKOK</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@400;700;900&display=swap');
+        
+        body { background: #05080a; color: #e2e8f0; font-family: 'Poppins', sans-serif; margin: 0; overflow-x: hidden; }
+        
+        :root {
+            --accent-neon: #32ff7e;
+            --accent-glow: rgba(50, 255, 126, 0.4);
+            --dark-pure: #000000;
+            --dark-card: #0d121b;
+        }
+
+        /* GRAFFITI SIGNATURE */
+        .ardoangkok-header {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 2.5rem; color: #fff;
+            text-transform: uppercase;
+            text-shadow: 3px 3px 0px #000;
+        }
+
+        /* FIX KOTAK HITAM GLOW (PAKSA WARNA HITAM) */
+        .glow-input {
+            background-color: var(--dark-pure) !important; /* Paksa Hitam */
+            border: 2px solid #1e293b;
+            color: var(--accent-neon) !important; /* Teks Neon */
+            padding: 16px;
+            border-radius: 14px;
+            width: 100%;
+            outline: none;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 0.3s;
+            box-shadow: 0 0 5px rgba(50, 255, 126, 0.1);
+            -webkit-appearance: none; /* Hilangkan style bawaan HP */
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        .glow-input:focus {
+            border-color: var(--accent-neon);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        /* WARNA PILIHAN DI DALAM (DROPDOWN) */
+        select.glow-input option {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+            padding: 15px;
+        }
+
+        /* TOMBOL SCAN GAHAR */
+        .btn-sec { font-size: 9px; font-weight: 900; padding: 14px 5px; border-radius: 12px; text-transform: uppercase; transition: 0.3s; }
+        .btn-spy { background: rgba(50, 255, 126, 0.1); color: #32ff7e; border: 1px solid #32ff7e; }
+        .btn-hack { background: rgba(56, 189, 248, 0.1); color: #38bdf8; border: 1px solid #38bdf8; }
+        .btn-virus { background: rgba(248, 113, 113, 0.1); color: #f87171; border: 1px solid #f87171; }
+
+        .glass-card { background: var(--dark-card); border: 1px solid #1e293b; border-radius: 24px; }
+        
+        .scan-line { width: 100%; height: 2px; background: var(--accent-neon); position: absolute; left: 0; top: 0; display: none; animation: scanning 2s infinite linear; }
+        @keyframes scanning { 0% { top: 0; } 100% { top: 100%; } }
+    </style>
+</head>
+<body>
+
+    <div id="splash" class="fixed inset-0 z-[9999] bg-[#05080a] flex flex-col items-center justify-center transition-all duration-1000">
+        <div class="ardoangkok-header mb-8 animate-pulse text-center">ARDOANGKOK<br><span class="text-[10px] tracking-[8px] font-mono text-white/40">DEVELOPER</span></div>
+        <div class="w-56 h-[1px] bg-white/5 overflow-hidden">
+            <div class="h-full bg-[#32ff7e]" id="bar" style="width: 0%; transition: 3s linear;"></div>
+        </div>
+    </div>
+
+    <div id="app" class="p-6 opacity-0 max-w-md mx-auto transition-all duration-1000">
+        
+        <div class="flex flex-col mb-10 pt-6">
+            <div class="ardoangkok-header">ARDOANGKOK</div>
+            <div class="flex items-center gap-2 mt-1">
+                <span class="bg-[#32ff7e] text-black text-[8px] font-black px-3 py-1 rounded-full uppercase">Verified Security Dev</span>
+            </div>
+        </div>
+
+        <div class="glass-card p-6 mb-6">
+            <h2 class="text-[11px] font-black uppercase text-white mb-6 tracking-[3px]">Recovery Form</h2>
+            <div class="space-y-5">
+                <input type="number" id="phone" placeholder="Nomor WA (628xxx)" class="glow-input">
+                
+                <select id="reason" class="glow-input">
+                    <option value="" disabled selected style="color: #666;">Pilih Alasan Banned...</option>
+                    <optgroup label="Spam & Aktivitas" style="background:#000; color:#32ff7e;">
+                        <option value="Salah Deteksi Spam">Anti-Spam False Positive</option>
+                        <option value="Pesan Massal">Pesan Massal (Bulk)</option>
+                    </optgroup>
+                    <optgroup label="Masalah Aplikasi" style="background:#000; color:#32ff7e;">
+                        <option value="Terdeteksi WA Mod">Terdeteksi WA Mod (GB/Yo)</option>
+                        <option value="App Ilegal">Peringatan App Ilegal</option> 
+                        <option value="terkena ban"
+                         >terkena bug dan kebanned,spam
+                    </optgroup>
+                </select>
+
+                <button onclick="sendToSupport()" class="w-full bg-[#32ff7e] text-black font-black text-[11px] py-5 rounded-2xl uppercase tracking-[2px] shadow-lg active:scale-95 transition-all">
+                    Kirim Banding
+                </button>
+            </div>
+        </div>
+
+        <div class="glass-card p-6 relative overflow-hidden">
+            <div id="line-scan" class="scan-line"></div>
+            <div class="flex justify-between items-center mb-5">
+                <h2 class="text-[10px] font-black uppercase text-white">Security Audit</h2>
+                <span id="status-text" class="text-[8px] text-gray-600 font-bold">READY</span>
+            </div>
+            <div class="grid grid-cols-3 gap-3">
+                <button onclick="startScan('Sadapan')" class="btn-sec btn-spy">SADAPAN</button>
+                <button onclick="startScan('Hacker')" class="btn-sec btn-hack">HACKER</button>
+                <button onclick="startScan('Virus')" class="btn-sec btn-virus">VIRUS</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        setTimeout(() => { document.getElementById('bar').style.width = '100%'; }, 100);
+        setTimeout(() => {
+            document.getElementById('splash').style.transform = 'translateY(-100%)';
+            document.getElementById('app').style.opacity = '1';
+        }, 3500);
+
+        function startScan(type) {
+            const status = document.getElementById('status-text');
+            const line = document.getElementById('line-scan');
+            status.innerText = "SCANNING...";
+            line.style.display = "block";
+            setTimeout(() => {
+                line.style.display = "none";
+                status.innerText = type + " CLEAN";
+                status.className = "text-[8px] text-[#32ff7e] font-bold";
+            }, 3000);
+        }
+
+        function sendToSupport() {
+            const phone = document.getElementById('phone').value;
+            const reason = document.getElementById('reason').value;
+            if(!phone || !reason) return alert("Isi data Bos!");
+            window.location.href = `mailto:support@whatsapp.com?subject=Appeal&body=Nomor: ${phone}, Alasan: ${reason}`;
+        }
+    </script>
+</body>
+</html>
